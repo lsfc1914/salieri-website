@@ -1,3 +1,2 @@
-// Lightweight mobile navigation behavior; booking links currently open WhatsApp.
-const links = document.querySelectorAll('.links a');
-links.forEach(link => link.addEventListener('click', () => document.querySelector('.links').classList.remove('open')));
+// SALIERI V2: smooth anchor navigation and mobile menu close
+ document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>document.querySelector('nav').classList.remove('open')));
