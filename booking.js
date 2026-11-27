@@ -3,13 +3,13 @@ const SUPABASE_URL = "https://tjxjsjhitjybymxddihf.supabase.co";
 const SUPABASE_KEY = "sb_publishable_S55v70FypFoyw0relmO5WQ_KInYHnfd";
 const CREATE_BOOKING_URL = SUPABASE_URL + "/functions/v1/create-booking";
 const AVAILABILITY_URL = SUPABASE_URL + "/functions/v1/get-availability";
-const headers = {"Content-Type":"application/json","apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY};
+const headers = {"Content-Type":"application/json","apikey":SUPABASE_KEY};
 const $ = id => document.getElementById(id);
 const serviceEl=$("booking-service"), specialistEl=$("booking-specialist"), dateEl=$("booking-date"), timeEl=$("booking-time"), form=$("salieri-booking-form"), messageEl=$("booking-message");
 const say=(text,error=false)=>{messageEl.textContent=text;messageEl.classList.toggle("error",error)};
 const today=new Date(); const localDate=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Sofia",year:"numeric",month:"2-digit",day:"2-digit"}).format(today);
 dateEl.min=localDate;
-async function getRows(table,query=""){const r=await fetch(SUPABASE_URL+"/rest/v1/"+table+"?"+query,{headers:{apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY}});if(!r.ok)throw new Error("Не успяхме да заредим данните.");return r.json();}
+async function getRows(table,query=""){const r=await fetch(SUPABASE_URL+"/rest/v1/"+table+"?"+query,{headers:{apikey:SUPABASE_KEY}});if(!r.ok)throw new Error("Не успяхме да заредим данните.");return r.json();}
 async function loadOptions(){
  try{
   const [services,specialists,links]=await Promise.all([getRows("services","select=id,name,duration_minutes,price_eur&active=eq.true&order=name"),getRows("specialists","select=id,name,specialty&active=eq.true&order=name"),getRows("specialist_services","select=specialist_id,service_id")]);
