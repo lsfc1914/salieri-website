@@ -12,7 +12,7 @@ dateEl.min=localDate;
 async function getRows(table,query=""){const r=await fetch(SUPABASE_URL+"/rest/v1/"+table+"?"+query,{headers:{apikey:SUPABASE_KEY}});if(!r.ok)throw new Error("Не успяхме да заредим данните.");return r.json();}
 async function loadOptions(){
  try{
-  const [services,specialists,links]=await Promise.all([getRows("services","select=id,name,duration_minutes,price_eur&active=eq.true&order=name"),getRows("specialists","select=id,name,specialty&active=eq.true&order=name"),getRows("specialist_services","select=specialist_id,service_id")]);
+  const [services,specialists,links]=await Promise.all([getRows("services","select=id,name,duration_minutes,price_eur&active=eq.true&order=name"),getRows("specialists","select=id,name&active=eq.true&order=name"),getRows("specialist_services","select=specialist_id,service_id")]);
   serviceEl.innerHTML='<option value="">Избери услуга</option>'+services.map(s=>'<option value="'+s.id+'">'+s.name+' · €'+Number(s.price_eur).toFixed(2)+' · '+s.duration_minutes+' мин.</option>').join("");
   specialistEl.innerHTML='<option value="">Избери специалист</option>'+specialists.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join("");
   window.salieriLinks=links;
